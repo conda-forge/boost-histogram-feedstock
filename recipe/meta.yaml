@@ -34,7 +34,7 @@ test:
   requires:
     - futures  # [py2k]
     - pytest
-    - pytest-benchmark
+    - pytest-benchmark # [not (aarch64 and py2k)]
   commands:
     - pytest .
 
