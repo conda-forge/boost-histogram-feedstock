@@ -1,5 +1,5 @@
 {% set name = "boost-histogram" %}
-{% set version = "0.5.2" %}
+{% set version = "0.6.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,11 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/boost_histogram/boost-histogram-{{ version }}.tar.gz
-  sha256: 2b8756290c5d7b68a4e0696157e69ce97c1ea5c80ab70d65c72f017a217d0034
+  sha256: 0ff28baaa7fc17d5616ba6a3651249cffca9bc337f8ba1c2eeaefab7499a0a5a
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vvv"
+  script: "NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv"  # [linux]
+  script: "{{ PYTHON }} -m pip install . -vvv"  # [not linux]
   skip: true  # [win and vc<14]
 
 requirements:
