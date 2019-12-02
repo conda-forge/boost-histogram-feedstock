@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vvv"
+  script: "NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv"
   skip: true  # [win and vc<14]
 
 requirements:
