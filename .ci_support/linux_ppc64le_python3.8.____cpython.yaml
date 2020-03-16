@@ -2,20 +2,17 @@ channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '8'
+docker_image:
+- condaforge/linux-anvil-ppc64le
 numpy:
-- '1.14'
+- '1.16'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
-  vc:
-    max_pin: x
 python:
-- '3.8'
-target_platform:
-- win-64
-vc:
-- '14'
-zip_keys:
-- - python
-  - vc
+- 3.8.* *_cpython
