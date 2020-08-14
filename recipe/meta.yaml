@@ -13,11 +13,11 @@ build:
   number: 0
   script: NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv  # [linux and ppc64le]
   script: {{ PYTHON }} -m pip install . -vvv  # [not (linux and ppc64le)]
-  skip: true  # [win and vc<14]
+  skip: true  # [pypy]
 
 requirements:
   build:
-    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('cxx') }}           # [not win]
     - vs2017_{{ target_platform }}    # [win]
   host:
     - python
