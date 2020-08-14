@@ -13,7 +13,7 @@ build:
   number: 0
   script: NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv  # [linux and ppc64le]
   script: {{ PYTHON }} -m pip install . -vvv  # [not (linux and ppc64le)]
-  skip: true  # [pypy]
+  skip: true   # [python_impl == 'pypy']
 
 requirements:
   build:
