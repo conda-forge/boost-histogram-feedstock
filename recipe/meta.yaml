@@ -10,7 +10,7 @@ source:
   sha256: a79b472aa28579f3936a8264951bfafec3abf43f6cedc7476081b8ff0dc757a8
 
 build:
-  number: 2
+  number: 3
   script: NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv  # [linux and ppc64le]
   script: {{ PYTHON }} -m pip install . -vvv  # [not (linux and ppc64le)]
   skip: true  # [python_impl == 'pypy']
