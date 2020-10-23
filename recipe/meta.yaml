@@ -1,31 +1,29 @@
 {% set name = "boost-histogram" %}
-{% set version = "0.11.0" %}
+{% set version = "0.11.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/b/boost_histogram/boost-histogram-{{ version }}.tar.gz
-  sha256: a79b472aa28579f3936a8264951bfafec3abf43f6cedc7476081b8ff0dc757a8
+  url: https://pypi.io/packages/source/b/boost_histogram/boost_histogram-{{ version }}.tar.gz
+  sha256: eb2205e7cac21c3742b19ea147359c588e07a4f3b719d58c6ad6009fee423fce
 
 build:
-  number: 3
+  number: 0
   script: NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv  # [linux and ppc64le]
   script: {{ PYTHON }} -m pip install . -vvv  # [not (linux and ppc64le)]
-  skip: true  # [python_impl == 'pypy']
 
 requirements:
   build:
-    - {{ compiler('cxx') }}           # [not win]
-    - vs2017_{{ target_platform }}    # [win]
+    - {{ compiler('cxx') }}
   host:
     - python
     - pip >=18
-    - numpy
     - setuptools_scm
   run:
     - python
+    - numpy
     - {{ pin_compatible('numpy') }}
 
 test:
