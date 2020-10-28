@@ -10,7 +10,7 @@ source:
   sha256: eb2205e7cac21c3742b19ea147359c588e07a4f3b719d58c6ad6009fee423fce
 
 build:
-  number: 0
+  number: 1
   script: NPY_NUM_BUILD_JOBS=1 {{ PYTHON }} -m pip install . -vvv  # [linux and ppc64le]
   script: {{ PYTHON }} -m pip install . -vvv  # [not (linux and ppc64le)]
 
@@ -24,7 +24,6 @@ requirements:
   run:
     - python
     - numpy
-    - {{ pin_compatible('numpy') }}
 
 test:
   source_files:
@@ -42,7 +41,10 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: The Boost::Histogram Python wrapper.
+  summary: |
+    The official Boost.Histogram Python bindings. Provides fast, efficient
+    histogramming with a variety of different storages combined with dozens of
+    composable axes. Part of the [Scikit-HEP](https://scikit-hep.org) family.
   dev_url: https://github.com/scikit-hep/boost-histogram
   doc_url: https://boost-histogram.readthedocs.io
 
