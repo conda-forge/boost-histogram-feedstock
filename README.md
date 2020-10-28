@@ -7,7 +7,10 @@ Package license: BSD-3-Clause
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/boost-histogram-feedstock/blob/master/LICENSE.txt)
 
-Summary: The Boost::Histogram Python wrapper.
+Summary: The official Boost.Histogram Python bindings. Provides fast, efficient
+histogramming with a variety of different storages combined with dozens of
+composable axes. Part of the [Scikit-HEP](https://scikit-hep.org) family.
+
 
 Development: https://github.com/scikit-hep/boost-histogram
 
