@@ -12,7 +12,8 @@ source:
 build:
   number: 1
   script:
-    - export NPY_NUM_BUILD_JOBS=${CPU_COUNT}
+    - export NPY_NUM_BUILD_JOBS=1  # [linux and ppc64le]
+    - export NPY_NUM_BUILD_JOBS=${CPU_COUNT}  # [not (linux and ppc64le)]
     - {{ PYTHON }} -m pip install . -vvv
 
 requirements:
