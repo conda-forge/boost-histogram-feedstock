@@ -1,5 +1,5 @@
 {% set name = "boost-histogram" %}
-{% set version = "0.11.1" %}
+{% set version = "0.12.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/boost_histogram/boost_histogram-{{ version }}.tar.gz
-  sha256: eb2205e7cac21c3742b19ea147359c588e07a4f3b719d58c6ad6009fee423fce
+  sha256: 1d804e49419531f414dd422609bc7aa34a1498c66575b1e02e3d90663f444841
 
 build:
-  number: 1
+  number: 0
   script:
     - export NPY_NUM_BUILD_JOBS=1  # [linux and ppc64le]
     - export NPY_NUM_BUILD_JOBS=${CPU_COUNT}  # [not (linux and ppc64le)]
