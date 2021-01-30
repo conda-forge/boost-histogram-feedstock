@@ -14,7 +14,10 @@ build:
   script:
     - export NPY_NUM_BUILD_JOBS=1  # [linux and ppc64le]
     - export NPY_NUM_BUILD_JOBS=${CPU_COUNT}  # [not (linux and ppc64le)]
+    # Workaround for stalled jobs on travis
+    - bash -c 'while true; do echo "Prevent stall"; sleep 60; done' &  # [linux and ppc64le]
     - {{ PYTHON }} -m pip install . -vvv
+    - kill %1  # [linux and ppc64le]
 
 requirements:
   build:
