@@ -31,6 +31,7 @@ requirements:
   run:
     - python
     - numpy
+    - dataclasses  # [py<37]
 
 test:
   source_files:
