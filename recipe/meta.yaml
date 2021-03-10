@@ -1,5 +1,5 @@
 {% set name = "boost-histogram" %}
-{% set version = "0.13.0" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,17 +7,14 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/boost_histogram/boost_histogram-{{ version }}.tar.gz
-  sha256: a37c78617d93eba45579493e4ed92799178402c202b0f7df72e6100a1079f4bc
+  sha256: 88f2a58a77d273e9e09783036f23bb39ba2fcfc7e13d14639151245eb90ec0b2
 
 build:
   number: 0
+  skip: true  # [linux and ppc64le and python_impl == 'pypy']
   script:
-    - export CMAKE_BUILD_PARALLEL_LEVEL=1  # [linux and ppc64le]
     - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
-    # Workaround for stalled jobs on travis
-    - bash -c 'while true; do echo "Prevent stall"; sleep 60; done' &  # [linux and ppc64le]
     - {{ PYTHON }} -m pip install . -vvv
-    - kill %1  # [linux and ppc64le]
 
 requirements:
   build:
@@ -31,6 +28,7 @@ requirements:
   run:
     - python
     - numpy
+    - dataclasses  # [py<37]
 
 test:
   source_files:
