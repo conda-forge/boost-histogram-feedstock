@@ -1,5 +1,5 @@
 {% set name = "boost-histogram" %}
-{% set version = "0.13.0" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/boost_histogram/boost_histogram-{{ version }}.tar.gz
-  sha256: a37c78617d93eba45579493e4ed92799178402c202b0f7df72e6100a1079f4bc
+  sha256: 88f2a58a77d273e9e09783036f23bb39ba2fcfc7e13d14639151245eb90ec0b2
 
 build:
   number: 0
