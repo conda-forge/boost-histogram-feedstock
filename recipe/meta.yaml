@@ -29,6 +29,7 @@ requirements:
     - python
     - numpy
     - dataclasses  # [py<37]
+    - typing_extensions  # [py<38]
 
 test:
   source_files:
