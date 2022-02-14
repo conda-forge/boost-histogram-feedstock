@@ -14,7 +14,7 @@ build:
   skip: true  # [linux and ppc64le and python_impl == 'pypy']
   script:
     - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
-    - {{ PYTHON }} -m pip install . -vvv
+    - {{ PYTHON }} -m pip install . -v
 
 requirements:
   build:
