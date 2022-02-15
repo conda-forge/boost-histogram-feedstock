@@ -1,0 +1,75 @@
+diff --git a/tests/test_benchmark_1d.py b/tests/test_benchmark_1d.py
+index bb3c09c..9a59535 100644
+--- a/tests/test_benchmark_1d.py
++++ b/tests/test_benchmark_1d.py
+@@ -1,3 +1,5 @@
++import platform
++
+ import numpy as np
+ import pytest
+ from numpy.testing import assert_allclose, assert_array_equal
+@@ -7,6 +9,10 @@ import boost_histogram as bh
+ STORAGES = (bh.storage.Int64, bh.storage.Double, bh.storage.Unlimited)
+ DTYPES = (np.float64, np.float32, np.int64, np.int32)
+ 
++# Casting is broken for numpy on ppc64le: https://github.com/numpy/numpy/issues/21062
++if platform.machine() == "ppc64le":
++    DTYPES = (np.float64, np.int64)
++
+ bins = 100
+ ranges = (-1, 1)
+ bins = np.asarray(bins).astype(np.int64)
+diff --git a/tests/test_benchmark_2d.py b/tests/test_benchmark_2d.py
+index 19fad27..8db2ac1 100644
+--- a/tests/test_benchmark_2d.py
++++ b/tests/test_benchmark_2d.py
+@@ -1,3 +1,5 @@
++import platform
++
+ import numpy as np
+ import pytest
+ from numpy.testing import assert_array_equal
+@@ -7,6 +9,10 @@ import boost_histogram as bh
+ STORAGES = (bh.storage.Int64, bh.storage.Double, bh.storage.Unlimited)
+ DTYPES = (np.float64, np.float32, np.int64, np.int32)
+ 
++# Casting is broken for numpy on ppc64le: https://github.com/numpy/numpy/issues/21062
++if platform.machine() == "ppc64le":
++    DTYPES = (np.float64, np.int64)
++
+ bins = (100, 100)
+ ranges = ((-1, 1), (-1, 1))
+ bins = np.asarray(bins).astype(np.int64)
+diff --git a/tests/test_histogram.py b/tests/test_histogram.py
+index 27bf1bb..925fb67 100644
+--- a/tests/test_histogram.py
++++ b/tests/test_histogram.py
+@@ -1,6 +1,7 @@
+ import functools
+ import operator
+ import pickle
++import platform
+ import sys
+ from collections import OrderedDict
+ from io import BytesIO
+@@ -966,6 +967,9 @@ def test_fill_with_sequence_0():
+         c[1, 2, 3]
+ 
+ 
++@pytest.mark.xfail(
++    platform.machine() == "ppc64le", reason="ppc64le bug (TBD)", strict=False
++)
+ def test_fill_with_sequence_1():
+     def fa(*args):
+         return np.array(args, dtype=float)
+@@ -1064,6 +1068,9 @@ def test_fill_with_sequence_3():
+     assert_array_equal(h.view(True), [3, 1])
+ 
+ 
++@pytest.mark.skipif(
++    platform.machine() == "ppc64le" and sys.version_info < (3, 8),  reason="ppc64le segfault"
++)
+ def test_fill_with_sequence_4():
+     h = bh.Histogram(
+         bh.axis.StrCategory([], growth=True), bh.axis.Integer(0, 0, growth=True)
+
