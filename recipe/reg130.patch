@@ -1,0 +1,70 @@
+From 74a52f43d28fcb1cbb901ff02751cd17091991f7 Mon Sep 17 00:00:00 2001
+From: Henry Schreiner <henryschreineriii@gmail.com>
+Date: Tue, 15 Feb 2022 12:49:31 -0500
+Subject: [PATCH] fix: regression in #662 causing segfaults
+
+---
+ include/bh_python/register_histogram.hpp | 9 +++++----
+ src/boost_histogram/_internal/hist.py    | 5 +++++
+ tests/test_histogram.py                  | 6 ++++++
+ 3 files changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/include/bh_python/register_histogram.hpp b/include/bh_python/register_histogram.hpp
+index bf488ae2..eb36bc01 100644
+--- a/include/bh_python/register_histogram.hpp
++++ b/include/bh_python/register_histogram.hpp
+@@ -190,16 +190,17 @@ auto register_histogram(py::module& m, const char* name, const char* desc) {
+ 
+         .def("reduce",
+              [](const histogram_t& self, py::args args) {
++                 auto commands
++                     = py::cast<std::vector<bh::algorithm::reduce_command>>(args);
+                  py::gil_scoped_release release;
+-                 return bh::algorithm::reduce(
+-                     self, py::cast<std::vector<bh::algorithm::reduce_command>>(args));
++                 return bh::algorithm::reduce(self, commands);
+              })
+ 
+         .def("project",
+              [](const histogram_t& self, py::args values) {
++                 auto cpp_values = py::cast<std::vector<unsigned>>(values);
+                  py::gil_scoped_release release;
+-                 return bh::algorithm::project(self,
+-                                               py::cast<std::vector<unsigned>>(values));
++                 return bh::algorithm::project(self, cpp_values);
+              })
+ 
+         .def("fill", &fill<histogram_t>)
+diff --git a/src/boost_histogram/_internal/hist.py b/src/boost_histogram/_internal/hist.py
+index ba8d0d5e..ab5e6fb0 100644
+--- a/src/boost_histogram/_internal/hist.py
++++ b/src/boost_histogram/_internal/hist.py
+@@ -998,6 +998,11 @@ def project(self: H, *args: int) -> Union[H, float, Accumulator]:
+         Provided a list of axis numbers, this will produce the histogram over
+         those axes only. Flow bins are used if available.
+         """
++        for arg in args:
++            if arg < 0 or arg >= self.ndim:
++                raise ValueError(
++                    f"Projection axis must be a valid axis number 0 to {self.ndim-1}, not {arg}"
++                )
+ 
+         return self._new_hist(self._hist.project(*args))
+ 
+diff --git a/tests/test_histogram.py b/tests/test_histogram.py
+index 9ccf8f8b..dfd52dfa 100644
+--- a/tests/test_histogram.py
++++ b/tests/test_histogram.py
+@@ -590,6 +590,12 @@ def test_project():
+     with pytest.raises(ValueError):
+         h.project(2, 1)
+ 
++    with pytest.raises(ValueError):
++        h.project(9)
++
++    with pytest.raises(ValueError):
++        h.project(-1)
++
+ 
+ def test_shrink_1d():
+     h = bh.Histogram(bh.axis.Regular(20, 1, 5))
