@@ -38,7 +38,7 @@ test:
     - pytest >=6
     - pytest-benchmark
   commands:
-    - pytest
+    - pytest --benchmark-disable
 
 about:
   home: https://github.com/scikit-hep/boost-histogram
