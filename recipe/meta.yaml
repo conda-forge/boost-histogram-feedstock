@@ -1,5 +1,5 @@
 {% set name = "boost-histogram" %}
-{% set version = "1.3.0" %}
+{% set version = "1.3.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,9 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/boost_histogram/boost_histogram-{{ version }}.tar.gz
-  sha256: 62240dae889cbf05f8b4f2203f0b7d6c7a2e029502723a377fc33226e425ce50
-  patches:
-    - ppc64le.patch  # [linux and ppc64le]
+  sha256: 31cd396656f3a37834e07d304cdb84d9906bc2172626a3d92fe577d08bcf410f
 
 build:
   number: 0
@@ -29,7 +27,6 @@ requirements:
   run:
     - python
     - numpy
-    - dataclasses  # [py<37]
     - typing_extensions  # [py<38]
 
 test:
@@ -38,10 +35,10 @@ test:
   imports:
     - boost_histogram
   requires:
-    - pytest
+    - pytest >=6
     - pytest-benchmark
   commands:
-    - pytest . --showlocals
+    - pytest
 
 about:
   home: https://github.com/scikit-hep/boost-histogram
