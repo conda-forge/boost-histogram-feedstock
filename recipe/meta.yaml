@@ -10,7 +10,7 @@ source:
   sha256: cf9826cfcfe10335096b57a61f6c6569f65f0159259eeb2251c5bf31d859d753
 
 build:
-  number: 0
+  number: 1
   skip: true  # [linux and ppc64le and python_impl == 'pypy']
   script:
     - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
