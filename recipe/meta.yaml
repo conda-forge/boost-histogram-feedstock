@@ -11,7 +11,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [linux and ppc64le and python_impl == 'pypy']
   script:
     - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
     - {{ PYTHON }} -m pip install . -v
@@ -24,6 +23,7 @@ requirements:
   host:
     - python
     - pip >=18
+    - setuptools
     - setuptools_scm
   run:
     - python
@@ -33,6 +33,7 @@ requirements:
 test:
   source_files:
     - tests
+    - pyproject.toml
   imports:
     - boost_histogram
   requires:
