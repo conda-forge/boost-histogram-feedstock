@@ -1,5 +1,5 @@
 {% set name = "boost-histogram" %}
-{% set version = "1.4.0" %}
+{% set version = "1.4.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/b/boost_histogram/boost_histogram-{{ version }}.tar.gz
-  sha256: cf9826cfcfe10335096b57a61f6c6569f65f0159259eeb2251c5bf31d859d753
+  sha256: 97146f735f467d506976a047f3f237ce59840a952fd231f5f431f897fb006cdd
 
 build:
-  number: 1
+  number: 0
   skip: true  # [linux and ppc64le and python_impl == 'pypy']
   script:
     - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
