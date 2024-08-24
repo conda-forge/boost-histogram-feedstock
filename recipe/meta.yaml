@@ -21,15 +21,16 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
+    - cmake
+    - make  # [not win]
   host:
     - python
     - pip >=18
-    - setuptools
+    - scikit-build-core
     - setuptools_scm
   run:
     - python
     - numpy
-    - typing_extensions  # [py<38]
 
 test:
   source_files:
