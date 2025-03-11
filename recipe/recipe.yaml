@@ -45,7 +45,7 @@ tests:
         - boost_histogram
   - files:
       source:
-        - tests
+        - tests/
         - pyproject.toml
     requirements:
       run:
