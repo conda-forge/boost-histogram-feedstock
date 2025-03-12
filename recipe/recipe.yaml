@@ -35,6 +35,7 @@ requirements:
     - pip >=18
     - scikit-build-core
     - setuptools_scm
+    - pybind11
   run:
     - python
     - numpy
