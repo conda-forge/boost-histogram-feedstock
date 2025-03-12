@@ -11,10 +11,9 @@ Summary: The official Boost.Histogram Python bindings. Provides fast, efficient
 histogramming with a variety of different storages combined with dozens of
 composable axes. Part of the [Scikit-HEP](https://scikit-hep.org) family.
 
-
 Development: https://github.com/scikit-hep/boost-histogram
 
-Documentation: https://boost-histogram.readthedocs.io
+Documentation: https://boost-histogram.readthedocs.io/
 
 Current build status
 ====================
