@@ -11,9 +11,13 @@ source:
 
 build:
   number: 0
+  skip: true # [not (win and py312)]
   script:
-    - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
-    - {{ PYTHON }} -m pip install . -v
+    - echo "env vars"
+    - set
+    - echo "end env vars"
+    # - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
+    # - {{ PYTHON }} -m pip install . -v
 
 requirements:
   build:
