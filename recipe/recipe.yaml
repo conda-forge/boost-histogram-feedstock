@@ -13,11 +13,19 @@ source:
   sha256: 6e0f3dbdf7ab60ca1c61d5caa4f3f9e6097461feb65c6dbb01302fd88b1be524
 
 build:
+  skip:
+    - not win
+    - not match(python, "3.12.*")
   number: 1
   script:
-    - if: not (linux and ppc64le)
-      then: export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}
-    - ${{ PYTHON }} -m pip install . -v
+    - if: win
+      then:
+        - echo "All env vars:"
+        - set
+        - echo "Done with env vars"
+    # - if: not (linux and ppc64le)
+    #   then: export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}
+    # - ${{ PYTHON }} -m pip install . -v
 
 requirements:
   build:
