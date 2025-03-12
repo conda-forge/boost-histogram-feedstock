@@ -39,7 +39,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "arch=arm64"
 powershell -NoProfile -ExecutionPolicy unrestricted -Command "(Get-Content pixi.toml.bak -Encoding UTF8) -replace 'platforms = .*', 'platforms = [''win-%arch%'']' | Out-File pixi.toml -Encoding UTF8"
 pixi install
 if !errorlevel! neq 0 exit /b !errorlevel!
-pixi run python -c "import os, sys, fileinput; [print(line.replace('%PREFIX%', '%CONDA_PREFIX%'), end='') for line in fileinput.input(os.path.join(sys.prefix, 'Scripts', '.m2-ca-certificates-post-link.bat'), inplace=True)]"
+set PREFIX=%MINIFORGE_HOME%/.pixi/envs/default
 if !errorlevel! neq 0 exit /b !errorlevel!
 pixi run .m2-ca-certificates-post-link.bat
 if !errorlevel! neq 0 exit /b !errorlevel!
