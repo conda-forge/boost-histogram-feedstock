@@ -16,6 +16,8 @@ build:
     - echo "env vars"
     - set
     - echo "end env vars"
+    - git clone https://github.com/wjakob/nanobind
+
     # - export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}  # [not (linux and ppc64le)]
     # - {{ PYTHON }} -m pip install . -v
 
