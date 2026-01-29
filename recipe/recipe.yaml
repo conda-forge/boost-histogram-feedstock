@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: boost-histogram
-  version: "1.6.1"
+  version: "1.7.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/b/boost_histogram/boost_histogram-${{ version }}.tar.gz
-  sha256: cbe67507f62063590395cc9fe177bf979f26a53c0574365f8241b883b9a6f756
+  sha256: 51ce2d84223078c3164bd733a23cd1b6b3e687a9c6dca0b73be54d0a70f62b64
 
 build:
-  number: 2
+  number: 0
   script:
     - if: not win and not (linux and ppc64le)
       then: export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}
