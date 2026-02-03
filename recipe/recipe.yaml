@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: boost-histogram
-  version: "1.7.0"
+  version: "1.7.1"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/b/boost_histogram/boost_histogram-${{ version }}.tar.gz
-  sha256: 51ce2d84223078c3164bd733a23cd1b6b3e687a9c6dca0b73be54d0a70f62b64
+  sha256: 6ed3d7d2688fa32889dd441a7ef4920d60d696137d2abc3ab14eb9bd3b455b19
 
 build:
   number: 0
