@@ -13,11 +13,19 @@ source:
   sha256: 43d5c4c07315390b4a751165fa1fb00faafcc06c9da5442115063fba0e6130b1
 
 build:
-  number: 0
+  number: 1
   script:
     - if: not win and not (linux and ppc64le)
       then: export CMAKE_BUILD_PARALLEL_LEVEL=${CPU_COUNT}
-    - ${{ PYTHON }} -m pip install . -v
+    # CMP0190=NEW + an emulator lets cmake 4.4 FindPython query the (runnable)
+    # target interpreter when cross-compiling; without it the free-threaded
+    # include dir is rejected (Python_FIND_ABI now always defined, gil=OFF)
+    - if: build_platform != target_platform
+      then: |
+        ${{ PYTHON }} -m pip install . -v \
+          --config-settings=cmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW \
+          --config-settings=cmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
+      else: ${{ PYTHON }} -m pip install . -v
 
 requirements:
   build:
@@ -27,9 +35,7 @@ requirements:
         - cross-python_${{ target_platform }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib("c") }}
-    # cmake 4.4 FindPython rejects free-threaded Python when cross-compiling
-    # (always-defined Python_FIND_ABI defaults to gil=OFF)
-    - cmake <4.4
+    - cmake
     - if: not win
       then: make
   host:
