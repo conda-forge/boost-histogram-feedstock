@@ -23,8 +23,8 @@ build:
     - if: build_platform != target_platform
       then: |
         ${{ PYTHON }} -m pip install . -v \
-          --config-settings=cmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW \
-          --config-settings=cmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
+          -Ccmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW \
+          -Ccmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
       else: ${{ PYTHON }} -m pip install . -v
 
 requirements:
